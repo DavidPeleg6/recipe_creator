@@ -1,6 +1,7 @@
 # Ignore Cursor IDE metadata
 .cursor/
 .specify/
+recipe_creator/.langgraph_api/
 
 # Python
 __pycache__/

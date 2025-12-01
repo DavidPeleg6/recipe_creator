@@ -15,11 +15,16 @@ def create_recipe_agent(model: str | None = None, system_prompt: str | None = No
         system_prompt: Custom system prompt (default loaded from prompt file)
 
     Returns:
-        Configured LangChain agent
+        Configured LangChain agent (CompiledStateGraph)
     """
     return create_agent(
         model=model or config.model,
         tools=[web_search, get_youtube_transcript],
         system_prompt=system_prompt or config.system_prompt,
     )
+
+
+# Pre-compiled graph instance for LangGraph server
+# langgraph.json points to this instance directly
+graph = create_recipe_agent()
 
