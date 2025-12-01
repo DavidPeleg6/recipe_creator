@@ -1,2 +1,3 @@
+# Ignore Cursor IDE metadata
 .cursor/
 .venv/
