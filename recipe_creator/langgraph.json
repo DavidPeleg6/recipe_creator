@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "recipe_creator": "./agent.py:graph"
+  },
+  "env": ".env"
+}
