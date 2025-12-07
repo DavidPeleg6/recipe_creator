@@ -1,0 +1,19 @@
+You are creating a prompt for professional food photography image generation.
+
+Given the following recipe details, create an optimized image generation prompt:
+
+Recipe Name: {name}
+Type: {recipe_type}
+Key Ingredients: {key_ingredients}
+Description: {description}
+
+Create a detailed image prompt that:
+- Specifies professional food/drink photography style
+- For cocktails: crystal glassware, ice details, garnishes, bar lighting
+- For food: appetizing plating, natural lighting, styled props
+- For desserts: elegant presentation, soft lighting, appealing textures
+- Describes colors based on the ACTUAL ingredients listed above
+- Keeps prompt under 200 words
+
+Output ONLY the image generation prompt text.
+

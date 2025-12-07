@@ -5,6 +5,8 @@ from langchain.agents import create_agent
 from config import config
 from tools.web_search import web_search
 from tools.youtube import get_youtube_transcript
+from tools.save_recipe import save_recipe
+from tools.execute_sql import execute_recipe_sql
 
 
 def create_recipe_agent(model: str | None = None, system_prompt: str | None = None):
@@ -19,7 +21,7 @@ def create_recipe_agent(model: str | None = None, system_prompt: str | None = No
     """
     return create_agent(
         model=model or config.model,
-        tools=[web_search, get_youtube_transcript],
+        tools=[web_search, get_youtube_transcript, save_recipe, execute_recipe_sql],
         system_prompt=system_prompt or config.system_prompt,
     )
 

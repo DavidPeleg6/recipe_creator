@@ -42,6 +42,16 @@ class Config(BaseModel):
         default_factory=lambda: os.getenv("LANGSMITH_PROJECT", "recipe-agent")
     )
 
+    # Google AI for image generation (Imagen via Gemini API)
+    google_ai_api_key: str | None = Field(
+        default_factory=lambda: os.getenv("GOOGLE_AI_API_KEY")
+    )
+
+    # Google Cloud Storage for recipe images
+    gcs_bucket_name: str | None = Field(
+        default_factory=lambda: os.getenv("GCS_BUCKET_NAME")
+    )
+
     @property
     def system_prompt(self) -> str:
         """Load system prompt from file."""
