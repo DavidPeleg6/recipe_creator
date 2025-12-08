@@ -1,4 +1,16 @@
-"""Database engine and session setup."""
+"""Database engine and session setup.
+
+Schema reference (saved_recipes):
+- id (UUID text) PK
+- name (text, indexed)
+- recipe_type (text: cocktail|food|dessert, indexed)
+- ingredients, instructions (JSON)
+- prep_time_minutes, cook_time_minutes, servings (ints)
+- source_references, notes, user_notes, tags (JSON/text)
+- saved_at (datetime, indexed)
+- conversation_id (text)
+- is_deleted (bool/int, indexed)
+"""
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker

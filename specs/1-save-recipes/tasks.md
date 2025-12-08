@@ -92,11 +92,11 @@ asyncio.run(explore_recipes_db("SELECT name FROM saved_recipes WHERE is_deleted 
 
 **Goal**: Wire tools into agent with HITL middleware.
 
-- [ ] T021 Import `HumanInTheLoopMiddleware` and `MemorySaver` in agent.py
-- [ ] T022 Create `hitl_middleware` with `interrupt_on={"save_recipe": True}`
-- [ ] T023 Add `save_recipe` and `explore_recipes_db` to tools list
-- [ ] T024 Add `middleware=[hitl_middleware]` to `create_agent` call
-- [ ] T025 Add `checkpointer=MemorySaver()` to `create_agent` call
+- [x] T021 Import `HumanInTheLoopMiddleware` and `MemorySaver` in agent.py
+- [x] T022 Create `hitl_middleware` with `interrupt_on={"save_recipe": True}`
+- [x] T023 Add `save_recipe` and `explore_recipes_db` to tools list
+- [x] T024 Add `middleware=[hitl_middleware]` to `create_agent` call
+- [x] T025 Add `checkpointer=MemorySaver()` to `create_agent` call
 
 **Done when**:
 1. Start agent: `langgraph dev --no-browser --port 2024`
@@ -112,7 +112,7 @@ asyncio.run(explore_recipes_db("SELECT name FROM saved_recipes WHERE is_deleted 
 
 **Goal**: Add satisfaction detection to system prompt.
 
-- [ ] T026 Add Recipe Saving section to prompts/default_prompt.txt with satisfaction signals, save offer examples, and SQL query patterns
+- [x] T026 Add Recipe Saving section to prompts/default_prompt.txt with satisfaction signals, save offer examples, and SQL query patterns. also update to make the model create meaningful tags according to flavor profile, etc. make absolutely sure that the system prompt doesnt become too long.
 
 **Done when**: Agent offers to save after user says "This is perfect!" or "I'm making this tonight"
 
@@ -122,8 +122,8 @@ asyncio.run(explore_recipes_db("SELECT name FROM saved_recipes WHERE is_deleted 
 
 **Goal**: Documentation and final validation.
 
-- [ ] T027 [P] Add docstrings with examples to both tools
-- [ ] T028 [P] Add schema comments to storage/database.py
+- [x] T027 [P] Add docstrings with examples to both tools
+- [x] T028 [P] Add schema comments to storage/database.py
 - [ ] T029 Test complete flow: generate recipe → express satisfaction → save → list → soft delete
 - [ ] T030 Verify hard DELETE is blocked by guardrails
 

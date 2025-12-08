@@ -29,6 +29,9 @@ source ../.venv/bin/activate
 
 # Install dependencies
 uv pip install -r requirements.txt
+
+# Initialize database (creates saved_recipes table)
+python -c "from storage.database import init_db; import asyncio; asyncio.run(init_db())"
 ```
 
 ### 2. Configure API Keys

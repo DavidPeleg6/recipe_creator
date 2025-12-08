@@ -9,7 +9,7 @@ from pydantic import ValidationError
 from sqlalchemy import text
 
 from models.db import SavedRecipeDB
-from models.recipe import Recipe
+from models.recipe import Ingredient, Recipe, RecipeType
 from storage.database import AsyncSessionLocal
 
 # Blocked SQL patterns to prevent destructive operations.
@@ -25,19 +25,21 @@ BLOCKED_SQL = [
 
 async def save_recipe(
     name: str,
-    recipe_type: str,
-    ingredients: list[dict[str, Any]],
+    recipe_type: RecipeType,
+    ingredients: list[Ingredient],
     instructions: list[str],
-    prep_time_minutes: int | None = None,
-    cook_time_minutes: int | None = None,
-    servings: int | None = None,
+    prep_time_minutes: int,
+    cook_time_minutes: int,
+    servings: int = 1,
     notes: str | None = None,
     user_notes: str | None = None,
     tags: list[str] | None = None,
     source_references: list[str] | None = None,
     conversation_id: str | None = None,
 ) -> str:
-    """Save a recipe to the database. Requires HITL approval upstream."""
+    """Save a recipe to the database. Requires HITL approval upstream.
+        user_notes, tags, source_references, conversation_id) can be omitted or set to None. when specifying tags, include flavort profile, etc
+    """
     try:
         payload = Recipe(
             name=name,
@@ -72,12 +74,32 @@ async def save_recipe(
 
 
 async def explore_recipes_db(sql_query: str) -> str:
-    """Run a SELECT or UPDATE query against the saved recipes database."""
+    """Run a SELECT or UPDATE query against the saved recipes database.
+
+    Table: saved_recipes
+    Columns:
+      id, name, recipe_type, ingredients (JSON), instructions (JSON),
+      prep_time_minutes, cook_time_minutes, servings, source_references (JSON),
+      notes, user_notes, tags (JSON), saved_at, conversation_id, is_deleted
+
+    Guardrails: hard DELETE/DROP/TRUNCATE/CREATE/ALTER/INSERT are blocked.
+    Always scope active rows with is_deleted = 0 for listing.
+
+    Examples:
+      SELECT name, tags FROM saved_recipes WHERE ingredients LIKE '%bourbon%' AND is_deleted = 0;
+      UPDATE saved_recipes SET is_deleted = 1 WHERE name = 'Mojito';
+    """
     query_stripped = sql_query.strip()
     query_upper = query_stripped.upper()
 
     if not query_upper.startswith(("SELECT", "UPDATE")):
         return "❌ Only SELECT and UPDATE queries allowed"
+
+    if "SAVED_RECIPES" not in query_upper:
+        return (
+            "❌ Use the 'saved_recipes' table. Example: "
+            "SELECT name, recipe_type FROM saved_recipes WHERE is_deleted = 0"
+        )
 
     for label, pattern in BLOCKED_SQL:
         if re.search(pattern, query_upper):
