@@ -22,10 +22,10 @@ Implement persistent recipe storage with 2 tools: `save_recipe` (with HITL appro
 
 **Goal**: Initialize project structure and dependencies.
 
-- [ ] T001 Add `sqlalchemy>=2.0` and `aiosqlite` to requirements.txt
-- [ ] T002 Run `pip install -r requirements.txt`
-- [ ] T003 Create `data/` directory for SQLite database
-- [ ] T004 Create `storage/` package with `__init__.py`
+- [x] T001 Add `sqlalchemy>=2.0` and `aiosqlite` to requirements.txt
+- [ ] T002 Run `pip install -r requirements.txt`  *(blocked: pip is externally managed; use venv or --break-system-packages)*
+- [x] T003 Create `data/` directory for SQLite database
+- [x] T004 Create `storage/` package with `__init__.py`
 
 **Done when**: Dependencies installed, directories exist.
 
@@ -35,11 +35,11 @@ Implement persistent recipe storage with 2 tools: `save_recipe` (with HITL appro
 
 **Goal**: Set up SQLAlchemy models and database connection.
 
-- [ ] T005 [P] Add `database_path` and `database_url` properties to config.py
-- [ ] T006 [P] Create `SavedRecipeDB` SQLAlchemy model in models/saved_recipe.py
-- [ ] T007 Create async engine and `AsyncSessionLocal` in storage/database.py
-- [ ] T008 Create `init_db()` function in storage/database.py
-- [ ] T009 Export `SavedRecipeDB` from models/__init__.py
+- [x] T005 [P] Add `database_path` and `database_url` properties to config.py
+- [x] T006 [P] Create `SavedRecipeDB` SQLAlchemy model in models/saved_recipe.py
+- [x] T007 Create async engine and `AsyncSessionLocal` in storage/database.py
+- [x] T008 Create `init_db()` function in storage/database.py
+- [x] T009 Export `SavedRecipeDB` from models/__init__.py
 
 **Done when**:
 ```bash
