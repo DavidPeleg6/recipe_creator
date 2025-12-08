@@ -1,12 +1,11 @@
-"""Persistent saved recipe model."""
+"""SQLAlchemy model for saved recipes."""
 
 from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, JSON, String
-from sqlalchemy.orm import declarative_base
 
-Base = declarative_base()
+from models.db import Base
 
 
 class SavedRecipeDB(Base):
@@ -29,5 +28,4 @@ class SavedRecipeDB(Base):
     saved_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
     conversation_id = Column(String(100))
     is_deleted = Column(Boolean, default=False, nullable=False, index=True)
-
 

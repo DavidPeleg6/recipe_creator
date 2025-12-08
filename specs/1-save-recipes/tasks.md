@@ -55,23 +55,23 @@ sqlite3 data/recipes.db ".schema saved_recipes"
 
 ### save_recipe tool
 
-- [ ] T010 Create `save_recipe` async function signature in tools/recipe_storage.py
-- [ ] T011 Implement validation (name required, recipe_type in ['cocktail','food','dessert'])
-- [ ] T012 Implement INSERT using `SavedRecipeDB` and `AsyncSessionLocal`
-- [ ] T013 Return success message with recipe name
+- [x] T010 Create `save_recipe` async function signature in tools/recipe_storage.py
+- [x] T011 Implement validation (name required, recipe_type in ['cocktail','food','dessert'])
+- [x] T012 Implement INSERT using `SavedRecipeDB` and `AsyncSessionLocal`
+- [x] T013 Return success message with recipe name
 
 ### explore_recipes_db tool
 
-- [ ] T014 [P] Create `BLOCKED_SQL` patterns list in tools/recipe_storage.py
-- [ ] T015 [P] Create `explore_recipes_db` async function signature
-- [ ] T016 Implement query validation (must start with SELECT or UPDATE)
-- [ ] T017 Implement blocked pattern regex check
-- [ ] T018 Implement SELECT execution with table formatting (cap 50 rows)
-- [ ] T019 Implement UPDATE execution with row count response
+- [x] T014 [P] Create `BLOCKED_SQL` patterns list in tools/recipe_storage.py
+- [x] T015 [P] Create `explore_recipes_db` async function signature
+- [x] T016 Implement query validation (must start with SELECT or UPDATE)
+- [x] T017 Implement blocked pattern regex check
+- [x] T018 Implement SELECT execution with table formatting (cap 50 rows)
+- [x] T019 Implement UPDATE execution with row count response
 
 ### Exports
 
-- [ ] T020 Export both tools from tools/__init__.py
+- [x] T020 Export both tools from tools/__init__.py
 
 **Done when** (test without agent):
 ```python
