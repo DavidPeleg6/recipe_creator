@@ -1,6 +1,18 @@
 {
   "dependencies": [
-    "-r requirements.txt",
+    "langchain>=1.0.0",
+    "langchain-anthropic>=1.0.0",
+    "langchain-openai>=1.0.0",
+    "langgraph>=1.0.0",
+    "langgraph-cli[inmem]>=0.4.7",
+    "pydantic>=2.0",
+    "tavily-python>=0.5.0",
+    "youtube-transcript-api>=0.6.0",
+    "rich>=13.0.0",
+    "python-dotenv>=1.0.0",
+    "sqlalchemy>=2.0",
+    "greenlet>=3.0",
+    "psycopg[binary]>=3.1",
     "-e ."
   ],
   "graphs": {
