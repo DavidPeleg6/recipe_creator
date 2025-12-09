@@ -11,8 +11,7 @@
     "python-dotenv>=1.0.0",
     "sqlalchemy>=2.0",
     "greenlet>=3.0",
-    "psycopg[binary]>=3.1",
-    "-e ."
+    "psycopg[binary]>=3.1"
   ],
   "graphs": {
     "recipe_creator": "recipe_creator.agent:graph"
