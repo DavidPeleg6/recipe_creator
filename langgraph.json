@@ -4,7 +4,7 @@
     "-e ."
   ],
   "graphs": {
-    "recipe_creator": "./recipe_creator/agent.py:graph"
+    "recipe_creator": "recipe_creator.agent:graph"
   },
   "env": ".env"
 }
