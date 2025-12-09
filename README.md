@@ -12,6 +12,7 @@ A conversational AI agent that helps you find and create recipes for cocktails, 
 ## Prerequisites
 
 - Python 3.11+
+- PostgreSQL database (Neon or similar) with a connection string
 - API Keys:
   - **Anthropic** (Claude) or **OpenAI** API key
   - **Tavily** API key (for web search)
@@ -29,18 +30,26 @@ source ../.venv/bin/activate
 
 # Install dependencies
 uv pip install -r requirements.txt
-
-# Initialize database (creates saved_recipes table)
-python -c "from storage.database import init_db; import asyncio; asyncio.run(init_db())"
 ```
 
-### 2. Configure API Keys
+### 2. Configure Environment
 
 Create a `.env` file in the `recipe_creator/` directory:
 
 ```env
+# Required: PostgreSQL connection string (use your Neon URL)
+DATABASE_URL=postgresql+psycopg://user:password@host/db_name?sslmode=require
+
+# LLM / tools
 ANTHROPIC_API_KEY=your_anthropic_key_here
+OPENAI_API_KEY=your_openai_key_here   # optional alternative to Anthropic
 TAVILY_API_KEY=your_tavily_key_here
+```
+
+### 3. Initialize database
+
+```bash
+python -c "from storage.database import init_db; import asyncio; asyncio.run(init_db())"
 ```
 
 ## Running the Agent
@@ -101,6 +110,17 @@ You should see:
 | Connection fails | Ensure server is running and showing "API: http://..." |
 | Server stops unexpectedly | Restart with `langgraph dev` |
 
+## Optional: MCP Postgres Server
+
+If you want a Model Context Protocol (MCP) server that lets an agent run arbitrary SQL against your Postgres instance:
+
+1. Add your connection string to `.env` (already supported): `POSTGRESS_CONNECTION="postgresql://..."` (fallback key: `POSTGRES_CONNECTION`).
+2. Install the optional dependency: `pip install mcp` (psycopg and python-dotenv are already in `requirements.txt`).
+3. Start the server (stdio transport): `python -m recipe_creator.mcp.postgres_server`
+4. In your MCP client (e.g., Claude Desktop), point the server command to `python -m recipe_creator.mcp.postgres_server`.
+
+⚠️ The tool `run_sql` intentionally allows any SQL, including destructive commands. Use a constrained DB user if you want safety.
+
 ## Project Structure
 
 ```
@@ -124,6 +144,7 @@ recipe_creator/
 
 | Variable | Required | Description |
 |----------|----------|-------------|
+| `DATABASE_URL` | Yes | PostgreSQL connection string (dev/prod), e.g. `postgresql+psycopg://...` |
 | `ANTHROPIC_API_KEY` | Yes* | Anthropic Claude API key |
 | `OPENAI_API_KEY` | Yes* | OpenAI API key (alternative to Anthropic) |
 | `TAVILY_API_KEY` | Yes | Tavily API key for web search |

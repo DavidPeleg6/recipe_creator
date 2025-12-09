@@ -9,6 +9,6 @@ youtube-transcript-api>=0.6.0
 rich>=13.0.0
 python-dotenv>=1.0.0
 sqlalchemy>=2.0
-aiosqlite
 greenlet>=3.0
+psycopg[binary]>=3.1
 
