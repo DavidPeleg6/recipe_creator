@@ -3,7 +3,7 @@
 from langchain.tools import tool
 from tavily import TavilyClient
 
-from config import config
+from recipe_creator.config import config
 
 
 @tool

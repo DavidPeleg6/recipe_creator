@@ -124,18 +124,20 @@ If you want a Model Context Protocol (MCP) server that lets an agent run arbitra
 ## Project Structure
 
 ```
-recipe_creator/
-├── main.py              # CLI entry point
-├── agent.py             # Agent factory (creates the LangGraph agent)
-├── config.py            # Configuration management
-├── langgraph.json       # LangGraph server configuration
-├── requirements.txt     # Python dependencies
-├── models/              # Data models (Recipe, etc.)
-├── tools/               # Agent tools
-│   ├── web_search.py    # Tavily web search
-│   └── youtube.py       # YouTube transcript extraction
-└── prompts/             # System prompts
-    └── default_prompt.txt
+.
+├── langgraph.json       # LangGraph server configuration (root-level)
+├── recipe_creator/
+│   ├── main.py          # CLI entry point
+│   ├── agent.py         # Agent factory (creates the LangGraph agent)
+│   ├── config.py        # Configuration management
+│   ├── requirements.txt # Python dependencies
+│   ├── models/          # Data models (Recipe, etc.)
+│   ├── tools/           # Agent tools
+│   │   ├── web_search.py    # Tavily web search
+│   │   └── youtube.py       # YouTube transcript extraction
+│   └── prompts/         # System prompts
+│       └── default_prompt.txt
+└── specs/               # Architecture and implementation docs
 ```
 
 ## Configuration

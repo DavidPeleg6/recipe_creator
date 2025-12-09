@@ -5,8 +5,8 @@ from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
 
-from agent import create_recipe_agent
-from config import config
+from recipe_creator.agent import create_recipe_agent
+from recipe_creator.config import config
 
 console = Console()
 

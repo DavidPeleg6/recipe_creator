@@ -15,8 +15,8 @@ Schema reference (saved_recipes):
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from config import config
-from models.db import Base
+from recipe_creator.config import config
+from recipe_creator.models.db import Base
 
 
 def _ensure_async_pg_url(url: str) -> str:

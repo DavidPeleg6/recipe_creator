@@ -5,7 +5,7 @@ from uuid import uuid4
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, JSON, String
 
-from models.db import Base
+from recipe_creator.models.db import Base
 
 
 class SavedRecipeDB(Base):

@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "-r recipe_creator/requirements.txt",
+    "-e ."
+  ],
+  "graphs": {
+    "recipe_creator": "./recipe_creator/agent.py:graph"
+  },
+  "env": ".env"
+}

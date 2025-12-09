@@ -8,9 +8,9 @@ from typing import Any
 from pydantic import ValidationError
 from sqlalchemy import text
 
-from models.db import SavedRecipeDB
-from models.recipe import Ingredient, Recipe, RecipeType
-from storage.database import AsyncSessionLocal
+from recipe_creator.models.db import SavedRecipeDB
+from recipe_creator.models.recipe import Ingredient, Recipe, RecipeType
+from recipe_creator.storage.database import AsyncSessionLocal
 
 # Blocked SQL patterns to prevent destructive operations.
 BLOCKED_SQL = [
