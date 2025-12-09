@@ -42,6 +42,16 @@ class Config(BaseModel):
         default_factory=lambda: os.getenv("LANGSMITH_PROJECT", "recipe-agent")
     )
 
+    # Database
+    database_path: Path = Field(
+        default_factory=lambda: Path(os.getenv("RECIPE_DB_PATH", "data/recipes.db"))
+    )
+
+    @property
+    def database_url(self) -> str:
+        """SQLite database URL for async connection."""
+        return f"sqlite+aiosqlite:///{self.database_path}"
+
     @property
     def system_prompt(self) -> str:
         """Load system prompt from file."""

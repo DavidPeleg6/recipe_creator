@@ -3,6 +3,9 @@
 from langchain.agents import create_agent
 
 from config import config
+from middlewares import hitl_middleware
+
+from tools.recipe_storage import explore_recipes_db, save_recipe
 from tools.web_search import web_search
 from tools.youtube import get_youtube_transcript
 
@@ -19,8 +22,15 @@ def create_recipe_agent(model: str | None = None, system_prompt: str | None = No
     """
     return create_agent(
         model=model or config.model,
-        tools=[web_search, get_youtube_transcript],
+        tools=[
+            web_search,
+            get_youtube_transcript,
+            save_recipe,
+            explore_recipes_db,
+        ],
         system_prompt=system_prompt or config.system_prompt,
+        # Middleware applied in reverse order; HITL runs outermost, formatting runs first.
+        middleware=[hitl_middleware],
     )
 
 
