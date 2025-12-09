@@ -4,7 +4,7 @@
     "langchain-anthropic>=1.0.0",
     "langchain-openai>=1.0.0",
     "langgraph>=1.0.0",
-    "langgraph-cli>=0.4.8",
+    // langgraph-cli is provided by the base image; leave out to avoid runtime_inmem extra
     "pydantic>=2.0",
     "tavily-python>=0.5.0",
     "youtube-transcript-api>=0.6.0",
