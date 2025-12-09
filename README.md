@@ -101,6 +101,17 @@ You should see:
 | Connection fails | Ensure server is running and showing "API: http://..." |
 | Server stops unexpectedly | Restart with `langgraph dev` |
 
+## Optional: MCP Postgres Server
+
+If you want a Model Context Protocol (MCP) server that lets an agent run arbitrary SQL against your Postgres instance:
+
+1. Add your connection string to `.env` (already supported): `POSTGRESS_CONNECTION="postgresql://..."` (fallback key: `POSTGRES_CONNECTION`).
+2. Install the optional dependency: `pip install mcp` (psycopg and python-dotenv are already in `requirements.txt`).
+3. Start the server (stdio transport): `python -m recipe_creator.mcp.postgres_server`
+4. In your MCP client (e.g., Claude Desktop), point the server command to `python -m recipe_creator.mcp.postgres_server`.
+
+⚠️ The tool `run_sql` intentionally allows any SQL, including destructive commands. Use a constrained DB user if you want safety.
+
 ## Project Structure
 
 ```
