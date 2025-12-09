@@ -12,6 +12,7 @@ A conversational AI agent that helps you find and create recipes for cocktails, 
 ## Prerequisites
 
 - Python 3.11+
+- PostgreSQL database (Neon or similar) with a connection string
 - API Keys:
   - **Anthropic** (Claude) or **OpenAI** API key
   - **Tavily** API key (for web search)
@@ -29,18 +30,26 @@ source ../.venv/bin/activate
 
 # Install dependencies
 uv pip install -r requirements.txt
-
-# Initialize database (creates saved_recipes table)
-python -c "from storage.database import init_db; import asyncio; asyncio.run(init_db())"
 ```
 
-### 2. Configure API Keys
+### 2. Configure Environment
 
 Create a `.env` file in the `recipe_creator/` directory:
 
 ```env
+# Required: PostgreSQL connection string (use your Neon URL)
+DATABASE_URL=postgresql+psycopg://user:password@host/db_name?sslmode=require
+
+# LLM / tools
 ANTHROPIC_API_KEY=your_anthropic_key_here
+OPENAI_API_KEY=your_openai_key_here   # optional alternative to Anthropic
 TAVILY_API_KEY=your_tavily_key_here
+```
+
+### 3. Initialize database
+
+```bash
+python -c "from storage.database import init_db; import asyncio; asyncio.run(init_db())"
 ```
 
 ## Running the Agent
@@ -135,6 +144,7 @@ recipe_creator/
 
 | Variable | Required | Description |
 |----------|----------|-------------|
+| `DATABASE_URL` | Yes | PostgreSQL connection string (dev/prod), e.g. `postgresql+psycopg://...` |
 | `ANTHROPIC_API_KEY` | Yes* | Anthropic Claude API key |
 | `OPENAI_API_KEY` | Yes* | OpenAI API key (alternative to Anthropic) |
 | `TAVILY_API_KEY` | Yes | Tavily API key for web search |

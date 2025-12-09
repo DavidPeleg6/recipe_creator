@@ -18,7 +18,17 @@ from sqlalchemy.orm import sessionmaker
 from config import config
 from models.db import Base
 
-engine = create_async_engine(config.database_url, echo=False)
+
+def _ensure_async_pg_url(url: str) -> str:
+    """Ensure the URL uses an async PostgreSQL driver."""
+    if url.startswith("postgres://"):
+        return "postgresql+psycopg://" + url[len("postgres://") :]
+    if url.startswith("postgresql://") and "+psycopg" not in url.split("://", 1)[0]:
+        return "postgresql+psycopg://" + url[len("postgresql://") :]
+    return url
+
+
+engine = create_async_engine(_ensure_async_pg_url(config.database_url), echo=False)
 AsyncSessionLocal = sessionmaker(
     bind=engine, class_=AsyncSession, expire_on_commit=False
 )

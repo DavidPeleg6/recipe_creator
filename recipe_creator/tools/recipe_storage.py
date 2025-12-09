@@ -74,7 +74,7 @@ async def save_recipe(
 
 
 async def explore_recipes_db(sql_query: str) -> str:
-    """Run a SELECT or UPDATE query against the saved recipes database.
+    """Run a SELECT or UPDATE query against the saved recipes database (PostgreSQL 17).
 
     Table: saved_recipes
     Columns:
@@ -83,11 +83,22 @@ async def explore_recipes_db(sql_query: str) -> str:
       notes, user_notes, tags (JSON), saved_at, conversation_id, is_deleted
 
     Guardrails: hard DELETE/DROP/TRUNCATE/CREATE/ALTER/INSERT are blocked.
-    Always scope active rows with is_deleted = 0 for listing.
+    Always scope active rows with is_deleted = false for listing.
 
-    Examples:
-      SELECT name, tags FROM saved_recipes WHERE ingredients LIKE '%bourbon%' AND is_deleted = 0;
-      UPDATE saved_recipes SET is_deleted = 1 WHERE name = 'Mojito';
+    Examples (PostgreSQL):
+      SELECT name, tags FROM saved_recipes
+      WHERE ingredients::text ILIKE '%bourbon%' AND is_deleted = false;
+
+      UPDATE saved_recipes SET is_deleted = true WHERE name = 'Mojito';
+
+    JSON search tips (because tags/ingredients are JSONB):
+      -- Cast to text for pattern matches:
+      SELECT * FROM saved_recipes
+      WHERE is_deleted = false AND tags::text ILIKE '%mojito%';
+
+      -- Containment for array membership:
+      SELECT * FROM saved_recipes
+      WHERE is_deleted = false AND tags::jsonb @> '["mojito"]';
     """
     query_stripped = sql_query.strip()
     query_upper = query_stripped.upper()
@@ -95,19 +106,13 @@ async def explore_recipes_db(sql_query: str) -> str:
     if not query_upper.startswith(("SELECT", "UPDATE")):
         return "❌ Only SELECT and UPDATE queries allowed"
 
-    if "SAVED_RECIPES" not in query_upper:
-        return (
-            "❌ Use the 'saved_recipes' table. Example: "
-            "SELECT name, recipe_type FROM saved_recipes WHERE is_deleted = 0"
-        )
-
     for label, pattern in BLOCKED_SQL:
         if re.search(pattern, query_upper):
             return f"❌ Blocked: {label} operations not allowed"
 
     try:
         async with AsyncSessionLocal() as session:
-            result = await session.execute(text(sql_query))
+            result = await session.execute(text(query_stripped))
 
             if query_upper.startswith("UPDATE"):
                 await session.commit()

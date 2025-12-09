@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 # Load environment variables from .env file
 load_dotenv()
@@ -42,15 +42,17 @@ class Config(BaseModel):
         default_factory=lambda: os.getenv("LANGSMITH_PROJECT", "recipe-agent")
     )
 
-    # Database
-    database_path: Path = Field(
-        default_factory=lambda: Path(os.getenv("RECIPE_DB_PATH", "data/recipes.db"))
+    # Database (PostgreSQL only)
+    database_url: str | None = Field(
+        default_factory=lambda: os.getenv("DATABASE_URL")
     )
 
-    @property
-    def database_url(self) -> str:
-        """SQLite database URL for async connection."""
-        return f"sqlite+aiosqlite:///{self.database_path}"
+    @model_validator(mode="after")
+    def validate_database_url(self) -> "Config":
+        """Ensure a PostgreSQL connection string is provided."""
+        if not self.database_url:
+            raise ValueError("DATABASE_URL must be set (PostgreSQL connection string).")
+        return self
 
     @property
     def system_prompt(self) -> str:
