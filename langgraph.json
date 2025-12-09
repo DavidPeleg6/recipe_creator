@@ -1,6 +1,6 @@
 {
   "dependencies": [
-    "-r recipe_creator/requirements.txt",
+    "-r requirements.txt",
     "-e ."
   ],
   "graphs": {
