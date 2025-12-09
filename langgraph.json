@@ -4,7 +4,7 @@
     "langchain-anthropic>=1.0.0",
     "langchain-openai>=1.0.0",
     "langgraph>=1.0.0",
-    "langgraph-cli[inmem]>=0.4.7",
+    "langgraph-cli>=0.4.8",
     "pydantic>=2.0",
     "tavily-python>=0.5.0",
     "youtube-transcript-api>=0.6.0",
