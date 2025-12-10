@@ -35,3 +35,9 @@ Thumbs.db
 # Logs
 *.log
 .langgraph_api/
+
+# Frontend build artifacts
+agent_chat_frontend/node_modules/
+agent_chat_frontend/.next/
+agent_chat_frontend/.turbo/
+agent_chat_frontend/.vercel/
