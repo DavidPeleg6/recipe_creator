@@ -55,6 +55,9 @@ You can bypass the initial setup form by setting the following environment varia
 ```bash
 NEXT_PUBLIC_API_URL=http://localhost:2024
 NEXT_PUBLIC_ASSISTANT_ID=recipe_creator
+# Force showing the connection form even if env vars are set
+# Accepts "true" or "1"
+NEXT_PUBLIC_SHOW_SETUP_FORM=false
 ```
 
 > [!TIP]
