@@ -151,6 +151,7 @@ export const StreamProvider: React.FC<{ children: ReactNode }> = ({
   const [assistantId, setAssistantId] = useQueryState("assistantId", {
     defaultValue: envAssistantId || "",
   });
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   // For API key, use localStorage with env var fallback
   const [apiKey, _setApiKey] = useState(() => {
@@ -167,8 +168,8 @@ export const StreamProvider: React.FC<{ children: ReactNode }> = ({
   const finalApiUrl = apiUrl || envApiUrl;
   const finalAssistantId = assistantId || envAssistantId;
 
-  // Show the form if forced, or if we don't have an API URL / assistant ID
-  if (forceSetupForm || !finalApiUrl || !finalAssistantId) {
+  // Show the form if forced (until a submit), or if we don't have an API URL / assistant ID
+  if ((forceSetupForm && !hasSubmitted) || !finalApiUrl || !finalAssistantId) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center p-4">
         <div className="animate-in fade-in-0 zoom-in-95 bg-background flex max-w-3xl flex-col rounded-lg border shadow-lg">
@@ -197,6 +198,7 @@ export const StreamProvider: React.FC<{ children: ReactNode }> = ({
               setApiUrl(apiUrl);
               setApiKey(apiKey);
               setAssistantId(assistantId);
+              setHasSubmitted(true);
 
               form.reset();
             }}
