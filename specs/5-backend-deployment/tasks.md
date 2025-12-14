@@ -24,13 +24,13 @@
 
 ## Phase 1 — Setup (runbook + accounts)
 
-- [ ] T001 Create deployment runbook in `specs/5-backend-deployment/runbook.md` (project IDs, regions, URLs, secrets checklist)
-- [ ] T002 Confirm GCP project + billing enabled (record in `specs/5-backend-deployment/runbook.md`)
-- [ ] T003 Enable required GCP APIs (record commands + results in `specs/5-backend-deployment/runbook.md`)
-- [ ] T004 Create/confirm Artifact Registry repo `recipe-agent` in `specs/5-backend-deployment/runbook.md`
-- [ ] T005 Create/confirm service account `github-deployer` + IAM roles in `specs/5-backend-deployment/runbook.md`
-- [ ] T006 Create service account key + store as GitHub secret (record rotation date in `specs/5-backend-deployment/runbook.md`)
-- [ ] T007 Create residential proxy account + obtain proxy URL (record provider + URL format in `specs/5-backend-deployment/runbook.md`)
+- [x] T001 Create deployment runbook in `specs/5-backend-deployment/runbook.md` (project IDs, regions, URLs, secrets checklist)
+- [x] T002 Confirm GCP project + billing enabled (record in `specs/5-backend-deployment/runbook.md`)
+- [x] T003 Enable required GCP APIs (record commands + results in `specs/5-backend-deployment/runbook.md`)
+- [x] T004 Create/confirm Artifact Registry repo `recipe-agent` in `specs/5-backend-deployment/runbook.md`
+- [x] T005 Create/confirm service account `github-deployer` + IAM roles in `specs/5-backend-deployment/runbook.md`
+- [x] T006 Create service account key + store as GitHub secret (record rotation date in `specs/5-backend-deployment/runbook.md`)
+- [x] T007 Create residential proxy account + obtain proxy URL (record provider + URL format in `specs/5-backend-deployment/runbook.md`)
 
 ## Phase 2 — Foundational (repo + deployment wiring)
 
