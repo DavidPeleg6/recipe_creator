@@ -29,6 +29,19 @@ This runbook is the **single source of truth** for production deployment details
 - `LANGSMITH_API_KEY` (optional; only if you use LangSmith)
 - `PROXY_URL` (residential proxy, required for YouTube transcripts in Cloud Run)
 
+#### Where each secret is used
+
+| Secret | Used in | Purpose |
+|---|---|---|
+| `GCP_PROJECT_ID` | `.github/workflows/deploy.yml` (`env.PROJECT_ID`) | Selects the Artifact Registry image path + target GCP project |
+| `GCP_SA_KEY` | `.github/workflows/deploy.yml` (`google-github-actions/auth@v2`) | Authenticates GitHub Actions to GCP |
+| `ANTHROPIC_API_KEY` | `.github/workflows/deploy.yml` → Cloud Run `env_vars` | LLM provider key used by the backend |
+| `TAVILY_API_KEY` | `.github/workflows/deploy.yml` → Cloud Run `env_vars` | Web search tool key |
+| `DATABASE_URL` | `.github/workflows/deploy.yml` → Cloud Run `env_vars` | Neon Postgres connection string |
+| `LANGGRAPH_API_KEY` | `.github/workflows/deploy.yml` → Cloud Run `env_vars` | Backend API key (validated against `X-Api-Key` in Phase 3) |
+| `LANGSMITH_API_KEY` | `.github/workflows/deploy.yml` → Cloud Run `env_vars` | Optional tracing/observability |
+| `PROXY_URL` | `.github/workflows/deploy.yml` → Cloud Run `env_vars` | Residential proxy used by the YouTube transcript tool |
+
 ### Cloud Run runtime env vars
 
 These should be set via GitHub Actions deploy (preferred) or `gcloud run deploy --set-env-vars` (manual):
@@ -248,11 +261,16 @@ URL="REPLACE_ME"
 # Health
 curl -i "$URL/ok"
 
-# Info (will require auth once API key auth is enabled)
+# Info
+curl -i "$URL/info"
+
+# Info (Phase 3+): should succeed only with auth once API key auth is enabled
 curl -i -H "X-Api-Key: $LANGGRAPH_API_KEY" "$URL/info"
 ```
 
-- `/ok` returns 200 ✅/❌
-- `/info` returns 200 with auth ✅/❌
+- `/ok` returns **200** ✅/❌
+- `/info` returns **200** (Phase 2, before auth is enforced) ✅/❌
+- `/info` returns **401/403** without `X-Api-Key` (Phase 3+) ✅/❌
+- `/info` returns **200** with `X-Api-Key: $LANGGRAPH_API_KEY` (Phase 3+) ✅/❌
 
 

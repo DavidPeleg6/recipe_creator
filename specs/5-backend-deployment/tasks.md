@@ -34,10 +34,10 @@
 
 ## Phase 2 — Foundational (repo + deployment wiring)
 
-- [ ] T008 [P] Add Cloud Run deploy workflow at `.github/workflows/deploy.yml`
-- [ ] T009 Add `LANGGRAPH_API_KEY` secret to workflow env injection in `.github/workflows/deploy.yml`
-- [ ] T010 Add required GitHub repository secrets (names + where used) in `specs/5-backend-deployment/runbook.md`
-- [ ] T011 [P] Add lightweight “deploy smoke test” script notes in `specs/5-backend-deployment/runbook.md` (curl endpoints + expected status codes)
+- [x] T008 [P] Add Cloud Run deploy workflow at `.github/workflows/deploy.yml`
+- [x] T009 Add `LANGGRAPH_API_KEY` secret to workflow env injection in `.github/workflows/deploy.yml`
+- [x] T010 Add required GitHub repository secrets (names + where used) in `specs/5-backend-deployment/runbook.md`
+- [x] T011 [P] Add lightweight “deploy smoke test” script notes in `specs/5-backend-deployment/runbook.md` (curl endpoints + expected status codes)
 
 ---
 
