@@ -17,5 +17,8 @@
   "graphs": {
     "recipe_creator": "recipe_creator.agent:graph"
   },
+  "auth": {
+    "path": "recipe_creator.auth:auth"
+  },
   "env": ".env"
 }

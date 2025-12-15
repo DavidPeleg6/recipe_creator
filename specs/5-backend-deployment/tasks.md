@@ -49,11 +49,11 @@
 - Requests without `X-Api-Key` fail (401/403)
 - Requests with `X-Api-Key: $LANGGRAPH_API_KEY` succeed
 
-- [ ] T012 [US3] Add backend auth implementation entrypoint in `recipe_creator/auth.py` (validate `X-Api-Key` against `LANGGRAPH_API_KEY`)
-- [ ] T013 [US3] Wire auth into LangGraph serving layer (update `langgraph.json` and/or add server hook module under `recipe_creator/` per LangGraph Python auth docs)
-- [ ] T014 [US3] Add `LANGGRAPH_API_KEY` to `.env.example` (or create `env.example` in repo root) documenting required prod auth secret
-- [ ] T015 [US3] Add Cloud Run env var `LANGGRAPH_API_KEY` in manual deploy commands in `specs/5-backend-deployment/runbook.md`
-- [ ] T016 [US3] Add “auth verification” curl examples in `specs/5-backend-deployment/runbook.md`
+- [x] T012 [US3] Add backend auth implementation entrypoint in `recipe_creator/auth.py` (validate `X-Api-Key` against `LANGGRAPH_API_KEY`)
+- [x] T013 [US3] Wire auth into LangGraph serving layer (update `langgraph.json` and/or add server hook module under `recipe_creator/` per LangGraph Python auth docs)
+- [x] T014 [US3] Add `LANGGRAPH_API_KEY` to `.env.example` (or create `env.example` in repo root) documenting required prod auth secret
+- [x] T015 [US3] Add Cloud Run env var `LANGGRAPH_API_KEY` in manual deploy commands in `specs/5-backend-deployment/runbook.md`
+- [x] T016 [US3] Add “auth verification” curl examples in `specs/5-backend-deployment/runbook.md`
 
 ---
 
